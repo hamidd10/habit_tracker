@@ -15,8 +15,6 @@ class HabitTrackerApp extends StatelessWidget {
   }
 }
 
-
-
 class HabitListScreen extends StatefulWidget {
   @override
   _HabitListScreenState createState() => _HabitListScreenState();
@@ -65,10 +63,26 @@ class _HabitListScreenState extends State<HabitListScreen> {
               children: [
                 Expanded(
                   child: TextField(
+                    style: const TextStyle(
+                        color: Color(0xFF339EEC), fontStyle: FontStyle.italic),
                     controller: habitController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: 'Enter a new habit',
-                      border: OutlineInputBorder(),
+                      hintStyle: const TextStyle(
+                          color: Color(0xFF339EEC),
+                          fontStyle: FontStyle.italic),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Color(0xFF339EEC)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Color(0xFF339EEC)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Color(0xFF339EEC)),
+                      ),
                     ),
                   ),
                 ),
@@ -76,18 +90,18 @@ class _HabitListScreenState extends State<HabitListScreen> {
                 ElevatedButton(
                   onPressed: () => addHabit(habitController.text),
                   style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFF339EEC),
-                    onPrimary: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    elevation: 5,
-                      padding: const EdgeInsets.symmetric(horizontal: 32 , vertical: 21),
-                    textStyle: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold
-                    )
-                  ),
+                      primary: const Color(0xFF339EEC),
+                      onPrimary: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      elevation: 5,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 32, vertical: 21),
+                      textStyle: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic)),
                   child: const Text('ADD'),
                 ),
               ],
@@ -101,12 +115,9 @@ class _HabitListScreenState extends State<HabitListScreen> {
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   child: Card(
                     shape: RoundedRectangleBorder(
-                      side: const BorderSide(
-                        width: 3,
-                        color: Color(0xFF90CAF8)
-                      ),
-                      borderRadius: BorderRadius.circular(10)
-                    ),
+                        side: const BorderSide(
+                            width: 3, color: Color(0xFF90CAF8)),
+                        borderRadius: BorderRadius.circular(10)),
                     child: ListTile(
                       tileColor: const Color(0xFF339EEC),
                       leading: Checkbox(
@@ -120,11 +131,15 @@ class _HabitListScreenState extends State<HabitListScreen> {
                           decoration: habits[index].isCompleted
                               ? TextDecoration.lineThrough
                               : TextDecoration.none,
-                          color: Colors.white
+                          color: Colors.white,
+                          fontStyle: FontStyle.italic,
                         ),
                       ),
                       trailing: IconButton(
-                        icon: const Icon(Icons.delete , color: Colors.white,),
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
                         onPressed: () {
                           setState(() {
                             habits.removeAt(index);
