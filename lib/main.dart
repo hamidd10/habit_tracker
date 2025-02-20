@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'habit_class.dart';
+
 void main() {
   runApp(HabitTrackerApp());
 }
@@ -8,21 +10,12 @@ class HabitTrackerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Habit Tracker',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: HabitListScreen(),
     );
   }
 }
 
-class Habit {
-  String name;
-  bool isCompleted;
 
-  Habit({required this.name, this.isCompleted = false});
-}
 
 class HabitListScreen extends StatefulWidget {
   @override
@@ -51,8 +44,18 @@ class _HabitListScreenState extends State<HabitListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF90CAF8),
       appBar: AppBar(
-        title: Text('Habit Tracker'),
+        title: const Text(
+          'Habit Tracker',
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 3,
+              fontSize: 24),
+        ),
+        backgroundColor: const Color(0xFF339EEC),
+        centerTitle: true,
       ),
       body: Column(
         children: [
