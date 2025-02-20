@@ -24,14 +24,14 @@ class HabitListScreen extends StatefulWidget {
 
 class _HabitListScreenState extends State<HabitListScreen> {
   List<Habit> habits = [];
-  TextEditingController _habitController = TextEditingController();
+  TextEditingController habitController = TextEditingController();
 
-  void _addHabit(String habitName) {
+  void addHabit(String habitName) {
     if (habitName.isNotEmpty) {
       setState(() {
         habits.add(Habit(name: habitName));
       });
-      _habitController.clear();
+      habitController.clear();
     }
   }
 
@@ -44,7 +44,7 @@ class _HabitListScreenState extends State<HabitListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF90CAF8),
+      backgroundColor: const Color(0xFF90CAF8),
       appBar: AppBar(
         title: const Text(
           'Habit Tracker',
@@ -60,22 +60,35 @@ class _HabitListScreenState extends State<HabitListScreen> {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _habitController,
-                    decoration: InputDecoration(
+                    controller: habitController,
+                    decoration: const InputDecoration(
                       hintText: 'Enter a new habit',
                       border: OutlineInputBorder(),
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 ElevatedButton(
-                  onPressed: () => _addHabit(_habitController.text),
-                  child: Text('Add'),
+                  onPressed: () => addHabit(habitController.text),
+                  style: ElevatedButton.styleFrom(
+                    primary: const Color(0xFF339EEC),
+                    onPrimary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    elevation: 5,
+                      padding: const EdgeInsets.symmetric(horizontal: 32 , vertical: 21),
+                    textStyle: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold
+                    )
+                  ),
+                  child: const Text('ADD'),
                 ),
               ],
             ),
@@ -84,26 +97,41 @@ class _HabitListScreenState extends State<HabitListScreen> {
             child: ListView.builder(
               itemCount: habits.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Checkbox(
-                    value: habits[index].isCompleted,
-                    onChanged: (_) => _toggleHabitCompletion(index),
-                  ),
-                  title: Text(
-                    habits[index].name,
-                    style: TextStyle(
-                      decoration: habits[index].isCompleted
-                          ? TextDecoration.lineThrough
-                          : TextDecoration.none,
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+                        width: 3,
+                        color: Color(0xFF90CAF8)
+                      ),
+                      borderRadius: BorderRadius.circular(10)
                     ),
-                  ),
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      setState(() {
-                        habits.removeAt(index);
-                      });
-                    },
+                    child: ListTile(
+                      tileColor: const Color(0xFF339EEC),
+                      leading: Checkbox(
+                        value: habits[index].isCompleted,
+                        onChanged: (_) => _toggleHabitCompletion(index),
+                        checkColor: Colors.white,
+                      ),
+                      title: Text(
+                        habits[index].name,
+                        style: TextStyle(
+                          decoration: habits[index].isCompleted
+                              ? TextDecoration.lineThrough
+                              : TextDecoration.none,
+                          color: Colors.white
+                        ),
+                      ),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete , color: Colors.white,),
+                        onPressed: () {
+                          setState(() {
+                            habits.removeAt(index);
+                          });
+                        },
+                      ),
+                    ),
                   ),
                 );
               },
